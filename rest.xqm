@@ -11,7 +11,7 @@ import module namespace twilio = 'http://www.library.vanderbilt.edu/modules/twil
 (:~
  : This function answers Twilio calls.
  : @param $name string to be included in the welcome message
- : @return Response element 
+ : @return Response element
  :)
 declare
   %rest:path("/twilio/answer")
@@ -25,7 +25,7 @@ declare
 (:~
  : This function handles digits for the main menu
  : @param $digits integer(s) provided by caller
- : @return Response element 
+ : @return Response element
  :)
 declare
   %rest:path("/twilio/gather")
@@ -41,7 +41,7 @@ declare
 (:~
  : This function handles digits for the staff menu.
  : @param $digits integer(s) provided by caller
- : @return Response element 
+ : @return Response element
  :)
 declare
   %rest:path("/twilio/gather/staff")
@@ -56,7 +56,7 @@ declare
 
 (:~
  : This function concludes Twilio calls.
- : @return Response element 
+ : @return Response element
  :)
 declare
   %rest:path("/twilio/goodbye")
