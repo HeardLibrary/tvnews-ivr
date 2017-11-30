@@ -41,6 +41,9 @@ declare function twilio:answer-phone() {
       <Response>
     	<Play>/static/welcome.mp3</Play>
         {twilio:main-options()}
+        <Redirect method="GET">
+        	/twilio/gather
+    	</Redirect>
       </Response>
 };
 

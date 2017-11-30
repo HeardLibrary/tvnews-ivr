@@ -53,18 +53,3 @@ declare
 {
     twilio:gather-call-list($digits)
 };
-
-(:~
- : This function concludes Twilio calls.
- : @return Response element
- :)
-declare
-  %rest:path("/twilio/goodbye")
-  %rest:POST
-  function page:goodbye()
-    as element(Response)
-{
-  <Response>
-    <Say>Goodbye! I hope you have a lovely day.</Say>
-  </Response>
-};
