@@ -5,13 +5,13 @@ module namespace twilio = "http://www.library.vanderbilt.edu/modules/twilio";
 declare namespace contacts = "http://www.library.vanderbilt.edu/modules/twilio/contacts";
 declare namespace auth = "http://www.library.vanderbilt.edu/modules/twilio/auth";
 
-declare variable $twilio:userName as xs:string :=
+declare variable $twilio:userName as xs:string := 
     fn:string(fn:doc("Twilio/auth.xml")//auth:userName/text());
-declare variable $twilio:password as xs:string :=
+declare variable $twilio:password as xs:string := 
     fn:string(fn:doc("Twilio/auth.xml")//auth:password/text());
-declare variable $twilio:phoneNumber as xs:string :=
+declare variable $twilio:phoneNumber as xs:string := 
     fn:string(fn:doc("Twilio/auth.xml")//auth:phoneNumber/text());
-
+   
 declare variable $twilio:ids :=
 	<ids>
       <phone number="+16153226938" option="1">
@@ -44,7 +44,7 @@ declare function twilio:answer-phone() {
         <Redirect method="GET">
         	/twilio/gather
     	</Redirect>
-      </Response>
+      </Response>	
 };
 
 declare function twilio:main-options() {
@@ -61,7 +61,7 @@ declare function twilio:gather-call-list($digits as xs:string) as element() {
         <Response>
              <Say>Calling {$name}</Say>
              {twilio:make-call($phone-number)}
-        </Response>
+        </Response> 
     else if ($digits = "0") then
           <Response>{twilio:main-options()}</Response>
     else
@@ -74,18 +74,9 @@ declare function twilio:make-call($phone-number) {
 
 declare function twilio:list-staff() as element() {
     <Gather action="/twilio/gather/staff" method="GET" timeout="10">
-       <Say>Please enter</Say>
-        {
-        	let $ids := $twilio:ids
-            for $person in $ids/phone
-        	return (
-            	<Say>{$person/@option/data()}</Say>,
-        		<Say>followed by the # for</Say>,
-        		<Say>{$person/name/text()}</Say>
-           	)
-        }
-        <Say>Please press * followed by the # to hear these options again.</Say>
-        <Say>To return to the main menu, please press 0 followed by the #.</Say>
+        <Play>/static/staff.mp3</Play>
+        <Play>/static/again.mp3</Play>
+        <Play>/static/return.mp3</Play>
     </Gather>
 };
 
@@ -99,7 +90,7 @@ declare function twilio:direct-outbound($digits as xs:string?) as element(Respon
         case "5" return <Response>{twilio:list-staff()}</Response>
         default return  <Response>
                             <Play>/static/sorry.mp3</Play>
-                            {twilio:main-options()}
+                            {twilio:main-options()}     	
                         </Response>
-
+            
 };
